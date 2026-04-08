@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: payrollpilot-backend
+  
+  profiles:
+    active: dev
+  
+  datasource:
+    url: jdbc:h2:mem:payrollpilot
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payrollpilot
+    username: ${DB_USERNAME:payrollpilot}
+    password: ${DB_PASSWORD:payrollpilot}
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

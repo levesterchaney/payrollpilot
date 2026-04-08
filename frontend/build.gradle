@@ -1,0 +1,32 @@
+plugins {
+    id 'base'
+}
+
+task installDependencies(type: Exec) {
+    description = 'Install frontend dependencies'
+    commandLine 'npm', 'install'
+    workingDir project.projectDir
+}
+
+task buildFrontend(type: Exec) {
+    description = 'Build frontend application'
+    dependsOn installDependencies
+    commandLine 'npm', 'run', 'build'
+    workingDir project.projectDir
+}
+
+task devFrontend(type: Exec) {
+    description = 'Run frontend in development mode'
+    dependsOn installDependencies
+    commandLine 'npm', 'run', 'dev'
+    workingDir project.projectDir
+}
+
+task testFrontend(type: Exec) {
+    description = 'Run frontend tests'
+    dependsOn installDependencies
+    commandLine 'npm', 'test'
+    workingDir project.projectDir
+}
+
+build.dependsOn buildFrontend

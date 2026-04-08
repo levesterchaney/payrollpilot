@@ -1,0 +1,28 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    id 'java'
+}
+
+dependencies {
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.data.jpa
+    implementation libs.spring.boot.starter.security
+    implementation libs.spring.boot.starter.validation
+    
+    implementation libs.jackson.databind
+    implementation libs.jackson.datatype.jsr310
+    
+    runtimeOnly libs.postgresql
+    runtimeOnly libs.h2.database
+    
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    
+    developmentOnly libs.spring.boot.devtools
+    
+    testImplementation libs.spring.boot.starter.test
+    testImplementation libs.testcontainers.junit.jupiter
+    testImplementation libs.testcontainers.postgresql
+    testRuntimeOnly libs.junit.platform.launcher
+}

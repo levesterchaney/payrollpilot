@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api libs.jackson.databind
+    api libs.jackson.datatype.jsr310
+    
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.platform.launcher
+}
