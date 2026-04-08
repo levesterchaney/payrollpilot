@@ -15,29 +15,34 @@ A comprehensive payroll management application designed to streamline payroll pr
 
 ## 🏗️ Architecture
 
-This is a modern multi-module application following microservices principles:
+This is a modern microservices application with a distributed architecture:
 
 ```
 payrollpilot/
-├── backend/          # Spring Boot REST API
-│   ├── src/main/     # Application source
-│   └── src/test/     # Unit and integration tests
-├── frontend/         # React TypeScript SPA
-│   ├── src/          # React components and logic
-│   └── public/       # Static assets
-├── shared/           # Common models and utilities
-└── gradle/           # Gradle wrapper and dependencies
+├── services/              # Microservices backend
+│   ├── api-gateway/       # API Gateway service
+│   ├── payroll-api/       # Core payroll management API
+│   ├── approval/          # Approval workflow service
+│   ├── calculation/       # Payroll calculation engine
+│   └── payment/           # Payment processing service
+├── frontend/              # React TypeScript SPA
+│   ├── src/              # React components and logic
+│   └── public/           # Static assets
+├── shared/               # Common models and utilities
+└── gradle/               # Gradle wrapper and dependencies
 ```
 
 ## 🛠️ Technology Stack
 
-### Backend
-- **Framework**: Spring Boot 3.2.4
+### Backend (Microservices)
+- **Framework**: Spring Boot 3.2.4 with Spring Cloud 2023.0.1
 - **Language**: Java 21
+- **Architecture**: Microservices with API Gateway
 - **Security**: Spring Security
 - **Database**: PostgreSQL (production), H2 (development/testing)
 - **ORM**: Spring Data JPA with Hibernate
 - **Validation**: Bean Validation (JSR-380)
+- **Monitoring**: Spring Boot Actuator with Prometheus metrics
 - **Documentation**: Jackson for JSON processing
 - **Testing**: JUnit 5, Mockito, TestContainers
 
@@ -50,9 +55,11 @@ payrollpilot/
 - **Code Quality**: ESLint, TypeScript strict mode
 
 ### Infrastructure
-- **Build System**: Gradle 8+ with Kotlin DSL
+- **Build System**: Gradle 8+ with multi-module setup
 - **Database**: PostgreSQL 15+
-- **Deployment**: Docker-ready configuration
+- **Service Discovery**: Spring Cloud Gateway
+- **Monitoring**: Prometheus metrics via Actuator
+- **Deployment**: Docker-ready microservices configuration
 - **Version Management**: Gradle version catalogs
 
 ## 🚀 Quick Start
@@ -76,13 +83,16 @@ payrollpilot/
 
 2. **Backend Development**
    ```bash
-   # Build all modules
-   ./gradlew build
+   # Build all modules (currently builds successfully with empty services)
+   gradle build
    
-   # Run backend with development profile (uses H2 database)
-   ./gradlew :backend:bootRun
-   
-   # Backend will be available at http://localhost:8080
+   # Note: Individual services are not yet implemented
+   # The following commands will be available once service implementations are added:
+   # ./gradlew :services:api-gateway:bootRun
+   # ./gradlew :services:payroll-api:bootRun
+   # ./gradlew :services:approval:bootRun
+   # ./gradlew :services:calculation:bootRun
+   # ./gradlew :services:payment:bootRun
    ```
 
 3. **Frontend Development**
@@ -99,48 +109,41 @@ payrollpilot/
    # Frontend will be available at http://localhost:5173
    ```
 
-### Production Setup
+### Current Development Status
 
-1. **Database Setup**
-   ```sql
-   -- Create database
-   CREATE DATABASE payrollpilot;
-   CREATE USER payrollpilot_user WITH PASSWORD 'secure_password';
-   GRANT ALL PRIVILEGES ON DATABASE payrollpilot TO payrollpilot_user;
-   ```
+**What's Working:**
+- ✅ Multi-module Gradle build system
+- ✅ React TypeScript frontend with Vite
+- ✅ Spring Boot service module structure
+- ✅ Gradle build completes successfully
 
-2. **Environment Configuration**
-   ```bash
-   # Create .env file in root directory
-   DATABASE_URL=jdbc:postgresql://localhost:5432/payrollpilot
-   DATABASE_USERNAME=payrollpilot_user
-   DATABASE_PASSWORD=secure_password
-   ```
+**What's Next:**
+- Implement Spring Boot application classes for each service
+- Add database configuration and entities
+- Implement REST APIs and business logic
+- Connect frontend to backend services
 
-3. **Build and Deploy**
-   ```bash
-   # Build production artifacts
-   ./gradlew build
-   
-   # Run with production profile
-   ./gradlew :backend:bootRun --args='--spring.profiles.active=production'
-   ```
+### Production Setup (Future Implementation)
+
+*Note: Production setup will be documented once service implementations are complete*
 
 ## 🔧 Development Commands
 
 ### Backend Operations
 ```bash
-# Clean build
-./gradlew clean build
+# Clean build all modules (current working command)
+gradle clean build
 
-# Run tests with coverage
-./gradlew test jacocoTestReport
+# Run tests for all modules
+gradle test
 
-# Run backend in debug mode
-./gradlew :backend:bootRun --debug-jvm
+# Check for dependency vulnerabilities
+gradle dependencyCheckAnalyze
 
-# Database migrations
-./gradlew :backend:flywayMigrate
+# Note: The following commands will be available once service implementations are added:
+# ./gradlew :services:api-gateway:bootRun --debug-jvm
+# ./gradlew :services:payroll-api:flywayMigrate
+# etc.
 ```
 
 ### Frontend Operations
@@ -150,13 +153,16 @@ cd frontend
 # Development server with hot reload
 npm run dev
 
-# Type checking
+# Production build (includes TypeScript compilation)
 npm run build  # Runs tsc + vite build
 
-# Linting
+# Type checking only
+npm run tsc
+
+# Linting (if configured)
 npm run lint
 
-# Testing
+# Testing (if configured)  
 npm run test
 npm run test:coverage
 ```
@@ -184,10 +190,14 @@ npm run test:coverage
 ## 📊 Project Status
 
 - **Version**: 1.0.0-SNAPSHOT
-- **Development Stage**: Initial Setup Complete
+- **Development Stage**: Project Structure Setup Complete
+- **Build Status**: ✅ Building Successfully
+- **Frontend**: ✅ React TypeScript app with Vite build system
+- **Backend**: ✅ Multi-module Gradle setup with Spring Boot microservices structure
+- **Services**: ⚠️ Service implementations pending (structure ready)
 - **Java Version**: 21 (LTS)
 - **Spring Boot**: 3.2.4
-- **Database**: PostgreSQL 15+
+- **Database**: PostgreSQL 15+ (not yet integrated)
 
 ## 🤝 Contributing
 

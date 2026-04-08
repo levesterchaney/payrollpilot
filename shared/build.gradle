@@ -3,12 +3,12 @@ plugins {
 }
 
 dependencies {
-    api libs.jackson.databind
-    api libs.jackson.datatype.jsr310
+    api 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0'
     
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
     
-    testImplementation libs.junit.jupiter
-    testRuntimeOnly libs.junit.platform.launcher
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
