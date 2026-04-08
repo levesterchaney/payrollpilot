@@ -4,6 +4,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4' apply false
 }
 
+ext {
+    set('springCloudVersion', "2023.0.1")
+}
+
 allprojects {
     group = 'com.payrollpilot'
     version = '1.0.0'
@@ -15,6 +19,8 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
     
     java {
         toolchain {
@@ -28,6 +34,12 @@ subprojects {
         }
     }
     
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+    
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -35,5 +47,12 @@ subprojects {
     
     tasks.named('test') {
         useJUnitPlatform()
+    }
+}
+
+configure(subprojects.findAll { it.path.startsWith(':services') }) {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'io.micrometer:micrometer-registry-prometheus'
     }
 }

@@ -8,6 +8,10 @@ dependencyResolutionManagement {
     }
 }
 
-include ':backend'
 include ':frontend'
 include ':shared'
+include ':services:api-gateway'
+include ':services:payroll-api'
+include ':services:approval'
+include ':services:calculation'
+include ':services:payment'
