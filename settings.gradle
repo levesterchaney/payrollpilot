@@ -1,0 +1,9 @@
+rootProject.name = 'payrollpilot'
+
+include ':frontend'
+include ':services:api-gateway'
+include ':services:payroll-api'
+include ':services:approval'
+include ':services:calculation'
+include ':services:payment'
+include ':shared'
